@@ -1,0 +1,326 @@
+---
+slug: building-security-lab
+title: "Building a Home Security Lab: Virtualization, Networking, and Target Machines"
+description: "Learn how to build a complete cybersecurity lab environment at home using virtualization, Docker containers, and vulnerable machines for practice and research."
+date: "2025-05-18"
+tags: ["Security Lab", "Virtualization", "Docker", "Homelab", "Practice"]
+category: "Kali Linux"
+author: "Security Researcher"
+---
+
+## Why Build a Security Lab?
+
+A home security lab provides a safe, legal environment to practice offensive and defensive security techniques. Whether you are preparing for certifications like OSCP, practicing for CTFs, or researching vulnerabilities, a well-designed lab is essential.
+
+Benefits of a home lab:
+
+- **Safe Environment**: Practice without legal risks
+- **Unlimited Reset**: Snapshots and rebuilds allow unlimited experimentation
+- **Realistic Scenarios**: Simulate complex network environments
+- **Tool Development**: Build and test custom security tools
+- **Continuous Learning**: Always have targets available to practice
+
+## Lab Architecture Overview
+
+Here is the recommended lab architecture:
+
+```
+Internet <----> Host Machine (Kali Linux / Windows + Hypervisor)
+                    |
+          +---------+---------+
+          |         |         |
+     pfSense    VulnHub   Active Directory
+     (Router)   (Web)     Domain
+          |         |         |
+     +----+----+   Web App  DC + Clients
+     |    |    |
+   LAN1 LAN2 DMZ
+```
+
+## Setting Up the Hypervisor
+
+### Option 1: VMware Workstation (Recommended)
+
+```bash
+# Download VMware Workstation Pro (free for personal use)
+# https://www.vmware.com/products/workstation-pro.html
+
+# Install on Linux
+chmod +x VMware-Workstation-Full-*.bundle
+sudo ./VMware-Workstation-Full-*.bundle
+
+# Configure virtual networks
+# Edit -> Virtual Network Editor
+# Create VMnet2 (LAN1: 10.0.1.0/24), VMnet3 (LAN2: 10.0.2.0/24)
+```
+
+### Option 2: VirtualBox
+
+```bash
+# Install VirtualBox
+sudo apt install -y virtualbox virtualbox-ext-pack
+
+# Create host-only networks
+vboxmanage hostonlyif create
+vboxmanage hostonlyif ipconfig vboxnet0 --ip 10.0.1.1 --netmask 255.255.255.0
+```
+
+### Option 3: Proxmox VE (Dedicated Server)
+
+For a dedicated lab server, Proxmox is excellent:
+
+```bash
+# Install Proxmox VE on bare metal
+# Download ISO from https://www.proxmox.com
+# Follow the installation wizard
+
+# After installation, access web interface
+# https://<proxmox-ip>:8006
+
+# Create a virtual network bridge for the lab
+# Datacenter -> <node> -> System -> Network -> Create -> Linux Bridge
+```
+
+## Target Machines
+
+### VulnHub VMs
+
+VulnHub provides intentionally vulnerable VMs perfect for practice:
+
+```bash
+# Download some beginner-friendly VMs
+wget https://download.vulnhub.com/mrrobot/MrRobot.ova
+wget https://download.vulnhub.com/kioptrix/Kioptrix_Level_1.ova
+wget https://download.vulnhub.com/stapler/Stapler.ova
+
+# Import into VMware/VirtualBox
+# File -> Import Appliance
+```
+
+### Docker-Based Targets
+
+Docker makes spinning up vulnerable applications incredibly easy:
+
+```bash
+# Pull vulnerable web applications
+docker pull vulnerables/web-dvwa
+docker pull bkimminich/juice-shop
+
+# Start DVWA (Damn Vulnerable Web Application)
+docker run -d -p 8080:80 --name dvwa vulnerables/web-dvwa
+
+# Start Juice Shop (Modern vulnerable web app)
+docker run -d -p 3000:3000 --name juice-shop bkimminich/juice-shop
+
+# Start Metasploitable-like services
+docker pull tleemcjr/metasploitable2
+
+# Create a lab network in Docker
+docker network create --subnet=172.20.0.0/16 lab-net
+docker run -d --net lab-net --ip 172.20.0.10 --name web-target vulnerables/web-dvwa
+```
+
+### Custom Vulnerable Applications
+
+Create your own vulnerable applications for targeted practice:
+
+```python
+# vulnerable_api.py - A deliberately vulnerable Flask API
+from flask import Flask, request, jsonify
+import sqlite3
+import subprocess
+import pickle
+import yaml
+
+app = Flask(__name__)
+
+# SQL Injection vulnerable endpoint
+@app.route('/api/user')
+def get_user():
+    user_id = request.args.get('id', '')
+    conn = sqlite3.connect('users.db')
+    # VULNERABLE: Direct string concatenation
+    query = f"SELECT * FROM users WHERE id = {user_id}"
+    cursor = conn.execute(query)
+    return jsonify(cursor.fetchall())
+
+# Command Injection vulnerable endpoint
+@app.route('/api/ping')
+def ping():
+    target = request.args.get('host', '')
+    # VULNERABLE: User input in shell command
+    result = subprocess.check_output(f"ping -c 1 {target}", shell=True)
+    return result
+
+# Insecure Deserialization
+@app.route('/api/load')
+def load_data():
+    data = request.args.get('data', '')
+    # VULNERABLE: Unsafe pickle deserialization
+    obj = pickle.loads(bytes.fromhex(data))
+    return str(obj)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
+```
+
+## Network Segmentation
+
+### pfSense Firewall Setup
+
+Use pfSense to create realistic segmented networks:
+
+```
+pfSense Configuration:
+- WAN: Bridged/NAT (10.0.0.0/24)
+- LAN1: Host-Only (10.0.1.0/24) - Internal network
+- LAN2: Host-Only (10.0.2.0/24) - DMZ
+```
+
+Create firewall rules to simulate real network restrictions:
+
+```
+# Allow LAN1 to access DMZ web servers
+Source: LAN1 net -> Destination: DMZ net, Port 80,443 -> PASS
+
+# Block DMZ from initiating connections to LAN1
+Source: DMZ net -> Destination: LAN1 net -> BLOCK
+
+# Allow outbound from LAN1 for updates
+Source: LAN1 net -> Destination: ANY, Port 80,443 -> PASS
+```
+
+### Active Directory Lab
+
+Set up a mini Active Directory environment for practicing AD attacks:
+
+```powershell
+# On Windows Server VM (Domain Controller)
+# Install AD Domain Services
+Install-WindowsFeature -Name AD-Domain-Services -IncludeManagementTools
+
+# Create the forest
+Install-ADDSForest `
+  -DomainName "corp.local" `
+  -DomainNetbiosName "CORP" `
+  -SafeModeAdministratorPassword (ConvertTo-SecureString "P@ssw0rd!" -AsPlainText -Force) `
+  -InstallDNS
+
+# Create test users
+New-ADUser -Name "John Smith" -SamAccountName "jsmith" `
+  -UserPrincipalName "jsmith@corp.local" `
+  -AccountPassword (ConvertTo-SecureString "Summer2024!" -AsPlainText -Force) `
+  -Enabled $true
+
+# Join Windows 10 client to domain
+Add-Computer -DomainName "corp.local" -Credential corp\Administrator -Restart
+```
+
+## Automation with Vagrant
+
+Vagrant allows you to define your entire lab as code:
+
+```ruby
+# Vagrantfile
+Vagrant.configure("2") do |config|
+  # Kali Linux attacker machine
+  config.vm.define "kali" do |kali|
+    kali.vm.box = "kalilinux/rolling"
+    kali.vm.network "private_network", ip: "10.0.1.10"
+    kali.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+      vb.cpus = 4
+    end
+  end
+
+  # Vulnerable web server
+  config.vm.define "web-target" do |web|
+    web.vm.box = "ubuntu/focal64"
+    web.vm.network "private_network", ip: "10.0.1.20"
+    web.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      apt-get install -y docker.io
+      docker run -d -p 80:80 vulnerables/web-dvwa
+    SHELL
+  end
+
+  # Windows 10 client (requires licensed box)
+  config.vm.define "win10" do |win|
+    win.vm.box = "gusztavvargadr/windows-10"
+    win.vm.network "private_network", ip: "10.0.1.30"
+    win.vm.provider "virtualbox" do |vb|
+      vb.memory = "4096"
+      vb.cpus = 2
+    end
+  end
+end
+```
+
+Launch the entire lab with a single command:
+
+```bash
+vagrant up
+```
+
+## Lab Management Tips
+
+### Snapshots
+
+Take snapshots at key points to allow quick rollbacks:
+
+```bash
+# VMware snapshots via command line
+vmrun snapshot "/path/to/vm.vmx" "clean-install"
+
+# VirtualBox snapshots
+vboxmanage snapshot "VM Name" take "baseline"
+```
+
+### Automated Rebuilds
+
+Script the rebuild process so you can reset everything quickly:
+
+```bash
+#!/bin/bash
+# reset-lab.sh - Rebuild the entire lab from scratch
+
+echo "[+] Destroying existing lab..."
+vagrant destroy -f
+
+echo "[+] Removing old Docker containers..."
+docker rm -f $(docker ps -aq) 2>/dev/null
+
+echo "[+] Rebuilding lab environment..."
+vagrant up
+
+echo "[+] Starting Docker targets..."
+docker run -d -p 8080:80 --name dvwa vulnerables/web-dvqa
+docker run -d -p 3000:3000 --name juice-shop bkimminich/juice-shop
+
+echo "[+] Lab is ready!"
+echo "Kali:        ssh vagrant@10.0.1.10 / password: vagrant"
+echo "DVWA:        http://10.0.1.20"
+echo "Juice Shop:  http://localhost:3000"
+```
+
+### Resource Management
+
+Security labs can be resource-intensive. Monitor and optimize:
+
+```bash
+# Check VM resource usage
+virsh list --all
+virsh dominfo VM_NAME
+
+# Monitor Docker resource usage
+docker stats
+
+# Clean up unused Docker resources
+docker system prune -af
+```
+
+## Conclusion
+
+A well-built security lab is an investment that pays for itself many times over. Start small with a single VM running a few Docker containers, and expand as your needs grow. The ability to safely experiment, break things, and learn from mistakes is invaluable for developing practical security skills.
+
+Remember to keep your lab isolated from your production network, regularly take snapshots before dangerous operations, and always practice ethical hacking principles -- even in your own lab.
