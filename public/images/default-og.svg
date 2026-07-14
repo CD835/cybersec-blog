@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0f"/>
+      <stop offset="100%" style="stop-color:#0f0f1a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ff41"/>
+      <stop offset="100%" style="stop-color:#00b894"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="40" y="40" width="1120" height="550" rx="12" fill="none" stroke="#1e1e35" stroke-width="1"/>
+  <text x="600" y="300" font-family="'JetBrains Mono', monospace" font-size="72" font-weight="bold" text-anchor="middle" fill="url(#accent)">&gt;_ 0xSec</text>
+  <text x="600" y="380" font-family="'JetBrains Mono', monospace" font-size="24" text-anchor="middle" fill="#606078">Cybersecurity Research &amp; CTF Writeups</text>
+  <line x1="200" y1="440" x2="1000" y2="440" stroke="#1e1e35" stroke-width="1"/>
+  <text x="600" y="490" font-family="'Inter', sans-serif" font-size="18" text-anchor="middle" fill="#a0a0b8">CTF • Reverse Engineering • Kali Linux • Web Security</text>
+</svg>

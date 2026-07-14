@@ -1,5 +1,3 @@
-import createMDX from "@mdx-js/mdx";
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: "export",

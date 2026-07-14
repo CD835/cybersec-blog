@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cd835.github.io/cybersec-blog"),
   title: {
     default: "0xSec Blog | Cybersecurity Research & CTF Writeups",
     template: "%s | 0xSec Blog",
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://yourusername.github.io",
+    url: "https://cd835.github.io/cybersec-blog",
     siteName: "0xSec Blog",
     title: "0xSec Blog | Cybersecurity Research & CTF Writeups",
     description:

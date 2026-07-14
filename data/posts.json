@@ -1,1 +1,540 @@
-[]
+[
+  {
+    "slug": "building-security-lab",
+    "title": "Building a Home Security Lab: Virtualization, Networking, and Target Machines",
+    "description": "Learn how to build a complete cybersecurity lab environment at home using virtualization, Docker containers, and vulnerable machines for practice and research.",
+    "date": "2025-05-18",
+    "tags": [
+      "Security Lab",
+      "Virtualization",
+      "Docker",
+      "Homelab",
+      "Practice"
+    ],
+    "category": "Kali Linux",
+    "author": "Security Researcher",
+    "image": "/images/default-og.png",
+    "readingTime": "6 min read",
+    "headings": [
+      {
+        "id": "why-build-a-security-lab",
+        "text": "Why Build a Security Lab?",
+        "level": 2
+      },
+      {
+        "id": "lab-architecture-overview",
+        "text": "Lab Architecture Overview",
+        "level": 2
+      },
+      {
+        "id": "setting-up-the-hypervisor",
+        "text": "Setting Up the Hypervisor",
+        "level": 2
+      },
+      {
+        "id": "option-1-vmware-workstation-recommended",
+        "text": "Option 1: VMware Workstation (Recommended)",
+        "level": 3
+      },
+      {
+        "id": "option-2-virtualbox",
+        "text": "Option 2: VirtualBox",
+        "level": 3
+      },
+      {
+        "id": "option-3-proxmox-ve-dedicated-server",
+        "text": "Option 3: Proxmox VE (Dedicated Server)",
+        "level": 3
+      },
+      {
+        "id": "target-machines",
+        "text": "Target Machines",
+        "level": 2
+      },
+      {
+        "id": "vulnhub-vms",
+        "text": "VulnHub VMs",
+        "level": 3
+      },
+      {
+        "id": "docker-based-targets",
+        "text": "Docker-Based Targets",
+        "level": 3
+      },
+      {
+        "id": "custom-vulnerable-applications",
+        "text": "Custom Vulnerable Applications",
+        "level": 3
+      },
+      {
+        "id": "network-segmentation",
+        "text": "Network Segmentation",
+        "level": 2
+      },
+      {
+        "id": "pfsense-firewall-setup",
+        "text": "pfSense Firewall Setup",
+        "level": 3
+      },
+      {
+        "id": "active-directory-lab",
+        "text": "Active Directory Lab",
+        "level": 3
+      },
+      {
+        "id": "automation-with-vagrant",
+        "text": "Automation with Vagrant",
+        "level": 2
+      },
+      {
+        "id": "lab-management-tips",
+        "text": "Lab Management Tips",
+        "level": 2
+      },
+      {
+        "id": "snapshots",
+        "text": "Snapshots",
+        "level": 3
+      },
+      {
+        "id": "automated-rebuilds",
+        "text": "Automated Rebuilds",
+        "level": 3
+      },
+      {
+        "id": "resource-management",
+        "text": "Resource Management",
+        "level": 3
+      },
+      {
+        "id": "conclusion",
+        "text": "Conclusion",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "web-security-fundamentals",
+    "title": "Web Security Fundamentals: OWASP Top 10 and Beyond",
+    "description": "Master the fundamentals of web application security, from SQL injection and XSS to modern attack vectors. A practical guide based on the OWASP Top 10 and real-world examples.",
+    "date": "2025-04-05",
+    "tags": [
+      "Web Security",
+      "OWASP",
+      "XSS",
+      "SQL Injection",
+      "Web Hacking"
+    ],
+    "category": "Web Security",
+    "author": "Security Researcher",
+    "image": "/images/default-og.png",
+    "readingTime": "4 min read",
+    "headings": [
+      {
+        "id": "understanding-web-security",
+        "text": "Understanding Web Security",
+        "level": 2
+      },
+      {
+        "id": "sql-injection-sqli",
+        "text": "SQL Injection (SQLi)",
+        "level": 2
+      },
+      {
+        "id": "classic-authentication-bypass",
+        "text": "Classic Authentication Bypass",
+        "level": 3
+      },
+      {
+        "id": "union-based-injection",
+        "text": "Union-Based Injection",
+        "level": 3
+      },
+      {
+        "id": "blind-sql-injection",
+        "text": "Blind SQL Injection",
+        "level": 3
+      },
+      {
+        "id": "prevention",
+        "text": "Prevention",
+        "level": 3
+      },
+      {
+        "id": "cross-site-scripting-xss",
+        "text": "Cross-Site Scripting (XSS)",
+        "level": 2
+      },
+      {
+        "id": "reflected-xss",
+        "text": "Reflected XSS",
+        "level": 3
+      },
+      {
+        "id": "stored-xss",
+        "text": "Stored XSS",
+        "level": 3
+      },
+      {
+        "id": "dom-based-xss",
+        "text": "DOM-Based XSS",
+        "level": 3
+      },
+      {
+        "id": "prevention",
+        "text": "Prevention",
+        "level": 3
+      },
+      {
+        "id": "cross-site-request-forgery-csrf",
+        "text": "Cross-Site Request Forgery (CSRF)",
+        "level": 2
+      },
+      {
+        "id": "prevention",
+        "text": "Prevention",
+        "level": 3
+      },
+      {
+        "id": "server-side-request-forgery-ssrf",
+        "text": "Server-Side Request Forgery (SSRF)",
+        "level": 2
+      },
+      {
+        "id": "prevention",
+        "text": "Prevention",
+        "level": 3
+      },
+      {
+        "id": "xml-external-entity-xxe-injection",
+        "text": "XML External Entity (XXE) Injection",
+        "level": 2
+      },
+      {
+        "id": "prevention",
+        "text": "Prevention",
+        "level": 3
+      },
+      {
+        "id": "security-headers",
+        "text": "Security Headers",
+        "level": 2
+      },
+      {
+        "id": "testing-methodology",
+        "text": "Testing Methodology",
+        "level": 2
+      },
+      {
+        "id": "resources-for-further-learning",
+        "text": "Resources for Further Learning",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "reverse-engineering-basics",
+    "title": "Reverse Engineering Basics: From Assembly to Understanding",
+    "description": "Dive into the fundamentals of reverse engineering, covering x86/x64 assembly, common tools like Ghidra and GDB, and practical techniques for analyzing binaries.",
+    "date": "2025-03-10",
+    "tags": [
+      "Reverse Engineering",
+      "Assembly",
+      "Ghidra",
+      "GDB",
+      "Binary Analysis"
+    ],
+    "category": "Reverse Engineering",
+    "author": "Security Researcher",
+    "image": "/images/default-og.png",
+    "readingTime": "6 min read",
+    "headings": [
+      {
+        "id": "introduction-to-reverse-engineering",
+        "text": "Introduction to Reverse Engineering",
+        "level": 2
+      },
+      {
+        "id": "computer-architecture-refresher",
+        "text": "Computer Architecture Refresher",
+        "level": 2
+      },
+      {
+        "id": "cpu-registers-x86-64",
+        "text": "CPU Registers (x86-64)",
+        "level": 3
+      },
+      {
+        "id": "the-stack",
+        "text": "The Stack",
+        "level": 3
+      },
+      {
+        "id": "essential-tools",
+        "text": "Essential Tools",
+        "level": 2
+      },
+      {
+        "id": "ghidra",
+        "text": "Ghidra",
+        "level": 3
+      },
+      {
+        "id": "gdb-gnu-debugger",
+        "text": "GDB (GNU Debugger)",
+        "level": 3
+      },
+      {
+        "id": "analyzing-a-simple-binary",
+        "text": "Analyzing a Simple Binary",
+        "level": 2
+      },
+      {
+        "id": "static-analysis-with-ghidra",
+        "text": "Static Analysis with Ghidra",
+        "level": 3
+      },
+      {
+        "id": "dynamic-analysis-with-gdb",
+        "text": "Dynamic Analysis with GDB",
+        "level": 3
+      },
+      {
+        "id": "common-reverse-engineering-techniques",
+        "text": "Common Reverse Engineering Techniques",
+        "level": 2
+      },
+      {
+        "id": "string-references",
+        "text": "String References",
+        "level": 3
+      },
+      {
+        "id": "cross-references-in-ghidra",
+        "text": "Cross-References in Ghidra",
+        "level": 3
+      },
+      {
+        "id": "function-identification",
+        "text": "Function Identification",
+        "level": 3
+      },
+      {
+        "id": "patching-binaries",
+        "text": "Patching Binaries",
+        "level": 3
+      },
+      {
+        "id": "advanced-topics-to-explore",
+        "text": "Advanced Topics to Explore",
+        "level": 2
+      },
+      {
+        "id": "conclusion",
+        "text": "Conclusion",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "kali-linux-essentials",
+    "title": "Kali Linux Essentials: Setting Up Your Penetration Testing Workstation",
+    "description": "A comprehensive guide to setting up Kali Linux for penetration testing, including essential tools, configuration tips, and workflow optimization for security professionals.",
+    "date": "2025-01-20",
+    "tags": [
+      "Kali Linux",
+      "Pentesting",
+      "Tools",
+      "Setup"
+    ],
+    "category": "Kali Linux",
+    "author": "Security Researcher",
+    "image": "/images/default-og.png",
+    "readingTime": "5 min read",
+    "headings": [
+      {
+        "id": "why-kali-linux",
+        "text": "Why Kali Linux?",
+        "level": 2
+      },
+      {
+        "id": "key-features",
+        "text": "Key Features",
+        "level": 3
+      },
+      {
+        "id": "installation-options",
+        "text": "Installation Options",
+        "level": 2
+      },
+      {
+        "id": "bare-metal-installation",
+        "text": "Bare Metal Installation",
+        "level": 3
+      },
+      {
+        "id": "virtual-machine-setup",
+        "text": "Virtual Machine Setup",
+        "level": 3
+      },
+      {
+        "id": "windows-subsystem-for-linux-wsl",
+        "text": "Windows Subsystem for Linux (WSL)",
+        "level": 3
+      },
+      {
+        "id": "essential-post-installation-steps",
+        "text": "Essential Post-Installation Steps",
+        "level": 2
+      },
+      {
+        "id": "update-everything",
+        "text": "Update Everything",
+        "level": 3
+      },
+      {
+        "id": "configure-the-firewall",
+        "text": "Configure the Firewall",
+        "level": 3
+      },
+      {
+        "id": "terminal-customization",
+        "text": "Terminal Customization",
+        "level": 3
+      },
+      {
+        "id": "install-tmux-for-session-management",
+        "text": "Install Tmux for Session Management",
+        "level": 3
+      },
+      {
+        "id": "must-have-tools-beyond-defaults",
+        "text": "Must-Have Tools Beyond Defaults",
+        "level": 2
+      },
+      {
+        "id": "workflow-optimization",
+        "text": "Workflow Optimization",
+        "level": 2
+      },
+      {
+        "id": "directory-structure-for-engagements",
+        "text": "Directory Structure for Engagements",
+        "level": 3
+      },
+      {
+        "id": "aliases-that-save-time",
+        "text": "Aliases That Save Time",
+        "level": 3
+      },
+      {
+        "id": "snapshots-are-your-friend",
+        "text": "Snapshots Are Your Friend",
+        "level": 3
+      },
+      {
+        "id": "security-considerations",
+        "text": "Security Considerations",
+        "level": 2
+      },
+      {
+        "id": "keeping-kali-updated",
+        "text": "Keeping Kali Updated",
+        "level": 2
+      },
+      {
+        "id": "conclusion",
+        "text": "Conclusion",
+        "level": 2
+      }
+    ]
+  },
+  {
+    "slug": "getting-started-ctf",
+    "title": "Getting Started with CTF: A Beginner's Guide to Capture The Flag Competitions",
+    "description": "Learn the fundamentals of Capture The Flag (CTF) competitions, the different categories, essential tools, and strategies to start your journey in competitive cybersecurity.",
+    "date": "2024-12-15",
+    "tags": [
+      "CTF",
+      "Beginner",
+      "Cybersecurity",
+      "Competition"
+    ],
+    "category": "CTF",
+    "author": "Security Researcher",
+    "image": "/images/default-og.png",
+    "readingTime": "4 min read",
+    "headings": [
+      {
+        "id": "what-is-a-ctf",
+        "text": "What is a CTF?",
+        "level": 2
+      },
+      {
+        "id": "jeopardy-style",
+        "text": "Jeopardy-Style",
+        "level": 3
+      },
+      {
+        "id": "attack-defense",
+        "text": "Attack-Defense",
+        "level": 3
+      },
+      {
+        "id": "essential-tools-for-ctfs",
+        "text": "Essential Tools for CTFs",
+        "level": 2
+      },
+      {
+        "id": "setting-up-your-environment",
+        "text": "Setting Up Your Environment",
+        "level": 3
+      },
+      {
+        "id": "your-first-ctf-challenge",
+        "text": "Your First CTF Challenge",
+        "level": 2
+      },
+      {
+        "id": "strategies-for-success",
+        "text": "Strategies for Success",
+        "level": 2
+      },
+      {
+        "id": "start-with-what-you-know",
+        "text": "Start with What You Know",
+        "level": 3
+      },
+      {
+        "id": "read-all-challenges-first",
+        "text": "Read All Challenges First",
+        "level": 3
+      },
+      {
+        "id": "take-notes",
+        "text": "Take Notes",
+        "level": 3
+      },
+      {
+        "id": "join-a-team",
+        "text": "Join a Team",
+        "level": 3
+      },
+      {
+        "id": "learn-from-writeups",
+        "text": "Learn from Writeups",
+        "level": 3
+      },
+      {
+        "id": "common-flag-formats",
+        "text": "Common Flag Formats",
+        "level": 2
+      },
+      {
+        "id": "next-steps",
+        "text": "Next Steps",
+        "level": 2
+      }
+    ]
+  }
+]

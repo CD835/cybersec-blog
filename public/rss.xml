@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>0xSec Blog</title>
+    <link>https://yourusername.github.io/</link>
+    <description>A cybersecurity blog covering CTF challenges, reverse engineering, Kali Linux, web security, and penetration testing.</description>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 14 Jul 2026 21:02:57 GMT</lastBuildDate>
+    <atom:link href="https://yourusername.github.io/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Building a Home Security Lab: Virtualization, Networking, and Target Machines</title>
+      <link>https://yourusername.github.io/posts/building-security-lab/</link>
+      <guid isPermaLink="true">https://yourusername.github.io/posts/building-security-lab/</guid>
+      <description>Learn how to build a complete cybersecurity lab environment at home using virtualization, Docker containers, and vulnerable machines for practice and research.</description>
+      <pubDate>Sun, 18 May 2025 00:00:00 GMT</pubDate>
+      <category>Kali Linux</category>
+      <category>Security Lab</category>
+      <category>Virtualization</category>
+      <category>Docker</category>
+      <category>Homelab</category>
+      <category>Practice</category>
+    </item>
+    <item>
+      <title>Web Security Fundamentals: OWASP Top 10 and Beyond</title>
+      <link>https://yourusername.github.io/posts/web-security-fundamentals/</link>
+      <guid isPermaLink="true">https://yourusername.github.io/posts/web-security-fundamentals/</guid>
+      <description>Master the fundamentals of web application security, from SQL injection and XSS to modern attack vectors. A practical guide based on the OWASP Top 10 and real-world examples.</description>
+      <pubDate>Sat, 05 Apr 2025 00:00:00 GMT</pubDate>
+      <category>Web Security</category>
+      <category>Web Security</category>
+      <category>OWASP</category>
+      <category>XSS</category>
+      <category>SQL Injection</category>
+      <category>Web Hacking</category>
+    </item>
+    <item>
+      <title>Reverse Engineering Basics: From Assembly to Understanding</title>
+      <link>https://yourusername.github.io/posts/reverse-engineering-basics/</link>
+      <guid isPermaLink="true">https://yourusername.github.io/posts/reverse-engineering-basics/</guid>
+      <description>Dive into the fundamentals of reverse engineering, covering x86/x64 assembly, common tools like Ghidra and GDB, and practical techniques for analyzing binaries.</description>
+      <pubDate>Mon, 10 Mar 2025 00:00:00 GMT</pubDate>
+      <category>Reverse Engineering</category>
+      <category>Reverse Engineering</category>
+      <category>Assembly</category>
+      <category>Ghidra</category>
+      <category>GDB</category>
+      <category>Binary Analysis</category>
+    </item>
+    <item>
+      <title>Kali Linux Essentials: Setting Up Your Penetration Testing Workstation</title>
+      <link>https://yourusername.github.io/posts/kali-linux-essentials/</link>
+      <guid isPermaLink="true">https://yourusername.github.io/posts/kali-linux-essentials/</guid>
+      <description>A comprehensive guide to setting up Kali Linux for penetration testing, including essential tools, configuration tips, and workflow optimization for security professionals.</description>
+      <pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
+      <category>Kali Linux</category>
+      <category>Kali Linux</category>
+      <category>Pentesting</category>
+      <category>Tools</category>
+      <category>Setup</category>
+    </item>
+    <item>
+      <title>Getting Started with CTF: A Beginner&apos;s Guide to Capture The Flag Competitions</title>
+      <link>https://yourusername.github.io/posts/getting-started-ctf/</link>
+      <guid isPermaLink="true">https://yourusername.github.io/posts/getting-started-ctf/</guid>
+      <description>Learn the fundamentals of Capture The Flag (CTF) competitions, the different categories, essential tools, and strategies to start your journey in competitive cybersecurity.</description>
+      <pubDate>Sun, 15 Dec 2024 00:00:00 GMT</pubDate>
+      <category>CTF</category>
+      <category>CTF</category>
+      <category>Beginner</category>
+      <category>Cybersecurity</category>
+      <category>Competition</category>
+    </item>
+  </channel>
+</rss>

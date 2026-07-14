@@ -142,7 +142,7 @@ export default function PostPage({ params }: PostPageProps) {
                   href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
                     post.title
                   )}&url=${encodeURIComponent(
-                    `https://yourusername.github.io/posts/${post.slug}`
+                    `https://cd835.github.io/cybersec-blog/posts/${post.slug}`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
