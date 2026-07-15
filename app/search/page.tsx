@@ -76,6 +76,7 @@ function SearchContent() {
         <div className="mb-4">
           <p className="text-sm text-[var(--text-muted)] font-mono">
             找到 {results.length} 条结果
+          </p>
         </div>
       )}
 
