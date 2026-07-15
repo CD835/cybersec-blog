@@ -21,7 +21,7 @@ const dataOutputDir = path.join(rootDir, "data");
 const publicDir = path.join(rootDir, "public");
 
 const SITE_URL = "https://cd835.github.io/cybersec-blog";
-const SITE_NAME = "0xSec Blog";
+const SITE_NAME = "累了 Blog";
 const SITE_DESCRIPTION =
   "A cybersecurity blog covering CTF challenges, reverse engineering, Kali Linux, web security, and penetration testing.";
 

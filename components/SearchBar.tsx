@@ -11,7 +11,7 @@ interface SearchBarProps {
 
 export default function SearchBar({
   initialQuery = "",
-  placeholder = 'Search posts... (e.g. "CTF reverse engineering")',
+  placeholder = '搜索文章... (如 "CTF 逆向 SQL注入")',
   className = "",
 }: SearchBarProps) {
   const [query, setQuery] = useState(initialQuery);
@@ -111,16 +111,12 @@ export default function SearchBar({
         </div>
       </div>
 
-      {/* Keyboard shortcut hint */}
+      {/* 快捷键提示 */}
       <div className="mt-2 text-xs text-[var(--text-muted)] font-mono flex items-center gap-2">
-        <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[10px]">
-          Ctrl
-        </kbd>
+        <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[10px]">Ctrl</kbd>
         <span>+</span>
-        <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[10px]">
-          K
-        </kbd>
-        <span>to focus search</span>
+        <kbd className="px-1.5 py-0.5 rounded bg-[var(--bg-secondary)] border border-[var(--border-color)] text-[10px]">K</kbd>
+        <span>快速聚焦搜索</span>
       </div>
     </form>
   );

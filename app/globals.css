@@ -37,6 +37,62 @@
     --shadow: 0 2px 12px rgba(0, 255, 65, 0.06);
   }
 
+  /* ====== 色彩主题预设 ====== */
+  /* 绿色（默认） */
+  [data-color="green"] {
+    --accent: #00b894;
+    --accent-glow: #00ff41;
+  }
+  .dark[data-color="green"],
+  [data-color="green"].dark {
+    --accent: #00ff41;
+    --accent-glow: #00ff41;
+  }
+
+  /* 蓝色 */
+  [data-color="blue"] {
+    --accent: #0984e3;
+    --accent-glow: #74b9ff;
+  }
+  .dark[data-color="blue"],
+  [data-color="blue"].dark {
+    --accent: #74b9ff;
+    --accent-glow: #74b9ff;
+  }
+
+  /* 紫色 */
+  [data-color="purple"] {
+    --accent: #6c5ce7;
+    --accent-glow: #a29bfe;
+  }
+  .dark[data-color="purple"],
+  [data-color="purple"].dark {
+    --accent: #a29bfe;
+    --accent-glow: #a29bfe;
+  }
+
+  /* 橙色 */
+  [data-color="orange"] {
+    --accent: #e17055;
+    --accent-glow: #fab1a0;
+  }
+  .dark[data-color="orange"],
+  [data-color="orange"].dark {
+    --accent: #fab1a0;
+    --accent-glow: #fab1a0;
+  }
+
+  /* 红色 */
+  [data-color="red"] {
+    --accent: #d63031;
+    --accent-glow: #ff7675;
+  }
+  .dark[data-color="red"],
+  [data-color="red"].dark {
+    --accent: #ff7675;
+    --accent-glow: #ff7675;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -89,7 +145,7 @@
   }
 
   .gradient-text {
-    background: linear-gradient(135deg, #00ff41, #00b894);
+    background: linear-gradient(135deg, var(--accent-glow), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -133,9 +189,6 @@
     background: #111122;
     border-radius: 0.5rem 0.5rem 0 0;
     border-bottom: 1px solid #1a1a2e;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
   }
 
   .terminal-dots {
@@ -281,7 +334,6 @@
     color: var(--text-secondary);
   }
 
-  /* Code block styling from rehype-pretty-code */
   .prose-custom pre {
     background-color: #0d1117 !important;
     border: 1px solid var(--border-color);
@@ -340,7 +392,6 @@
     color: var(--accent) !important;
   }
 
-  /* Scrollbar styling */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -357,5 +408,41 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
+  }
+
+  /* 首页英雄区背景图 */
+  .hero-bg {
+    background-image: url('/cybersec-blog/images/15680526683050304.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+  }
+
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(10, 10, 15, 0.92) 0%,
+      rgba(10, 10, 15, 0.75) 50%,
+      rgba(10, 10, 15, 0.88) 100%
+    );
+    z-index: 1;
+  }
+
+  .light .hero-bg::before {
+    background: linear-gradient(
+      135deg,
+      rgba(250, 250, 250, 0.88) 0%,
+      rgba(250, 250, 250, 0.65) 50%,
+      rgba(250, 250, 250, 0.85) 100%
+    );
+  }
+
+  .hero-bg > * {
+    position: relative;
+    z-index: 2;
   }
 }

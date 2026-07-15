@@ -49,29 +49,24 @@ function SearchContent() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-2xl sm:text-3xl font-bold mb-2">
-        <span className="text-[var(--accent)]">&gt;</span> Search Posts
+        <span className="text-[var(--accent)]">&gt;</span> 搜索文章
       </h1>
       <p className="text-sm text-[var(--text-muted)] mb-8 font-mono">
         {tagParam
-          ? `Filtering by tag: #${tagParam}`
-          : `Search across ${allPosts.length} posts by title, description, tags, and categories.`}
+          ? `按标签筛选: #${tagParam}`
+          : `在 ${allPosts.length} 篇文章中搜索标题、描述、标签和分类。`}
       </p>
 
       <SearchBar initialQuery={queryParam} className="mb-8" />
 
       {tagParam && (
         <div className="mb-6 flex items-center gap-2">
-          <span className="text-sm text-[var(--text-muted)] font-mono">
-            Active filter:
-          </span>
-          <span className="tag-badge !border-[var(--accent)]">
-            #{tagParam}
-          </span>
+          <span className="text-sm text-[var(--text-muted)] font-mono">当前筛选:</span>
+          <span className="tag-badge !border-[var(--accent)]">#{tagParam}</span>
           <button
             onClick={clearTag}
-            className="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
-          >
-            [clear]
+            className="text-xs font-mono text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors">
+            [清除]
           </button>
         </div>
       )}
@@ -80,8 +75,7 @@ function SearchContent() {
       {(queryParam || tagParam) && (
         <div className="mb-4">
           <p className="text-sm text-[var(--text-muted)] font-mono">
-            Found {results.length} result{results.length !== 1 ? "s" : ""}
-          </p>
+            找到 {results.length} 条结果
         </div>
       )}
 
@@ -121,27 +115,16 @@ function SearchContent() {
           ))
         ) : (queryParam || tagParam) ? (
           <div className="text-center py-12">
-            <div className="text-4xl mb-4 font-mono text-[var(--text-muted)]">
-              404
-            </div>
-            <p className="text-[var(--text-muted)] font-mono mb-4">
-              No posts found matching your search.
-            </p>
-            <button
-              onClick={clearTag}
-              className="text-sm font-mono text-[var(--accent)] hover:underline"
-            >
-              Clear filters and try again
+            <div className="text-4xl mb-4 font-mono text-[var(--text-muted)]">404</div>
+            <p className="text-[var(--text-muted)] font-mono mb-4">没有找到匹配的文章。</p>
+            <button onClick={clearTag} className="text-sm font-mono text-[var(--accent)] hover:underline">
+              清除筛选重试
             </button>
           </div>
         ) : (
           <div className="text-center py-12">
-            <div className="text-4xl mb-4 font-mono text-[var(--text-muted)]">
-              &gt;_
-            </div>
-            <p className="text-[var(--text-muted)] font-mono">
-              Enter a search query or select a tag to find posts.
-            </p>
+            <div className="text-4xl mb-4 font-mono text-[var(--text-muted)]">&gt;_</div>
+            <p className="text-[var(--text-muted)] font-mono">输入搜索关键词或选择标签来查找文章。</p>
           </div>
         )}
       </div>
