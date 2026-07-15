@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 export const metadata: Metadata = {
   metadataBase: new URL("https://cd835.github.io/cybersec-blog"),
   title: {
-    default: "0xSec Blog | Cybersecurity Research & CTF Writeups",
-    template: "%s | 0xSec Blog",
+    default: "累了 Blog | Cybersecurity Research & CTF Writeups",
+    template: "%s | 累了 Blog",
   },
   description:
     "A cybersecurity blog covering CTF challenges, reverse engineering, Kali Linux, web security, and penetration testing.",
@@ -30,8 +30,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://cd835.github.io/cybersec-blog",
-    siteName: "0xSec Blog",
-    title: "0xSec Blog | Cybersecurity Research & CTF Writeups",
+    siteName: "累了 Blog",
+    title: "累了 Blog | Cybersecurity Research & CTF Writeups",
     description:
       "A cybersecurity blog covering CTF challenges, reverse engineering, Kali Linux, web security, and penetration testing.",
     images: [
@@ -39,13 +39,13 @@ export const metadata: Metadata = {
         url: "/images/default-og.png",
         width: 1200,
         height: 630,
-        alt: "0xSec Blog",
+        alt: "累了 Blog",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "0xSec Blog | Cybersecurity Research & CTF Writeups",
+    title: "累了 Blog | Cybersecurity Research & CTF Writeups",
     description:
       "A cybersecurity blog covering CTF challenges, reverse engineering, Kali Linux, web security, and penetration testing.",
     images: ["/images/default-og.png"],
@@ -67,7 +67,7 @@ export default function RootLayout({
         <link
           rel="alternate"
           type="application/rss+xml"
-          title="0xSec Blog RSS Feed"
+          title="累了 Blog RSS Feed"
           href="/rss.xml"
         />
         <link rel="icon" href="/favicon.ico" sizes="any" />
